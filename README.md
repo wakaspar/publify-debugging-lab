@@ -1,18 +1,11 @@
-# Publify
+# Rails Legacy App
 
-**The Ruby on Rails publishing software formerly known as Typo**
+In this lab you will dive into a mature rails application and attempt to fix some reported bugs. This lab will stretch your debugging skills and your ability to navigate a large rails project. We encourage you to tackle it in pairs.
 
-### Download
+> This Rails application has been intentionally broken!
 
-You can download the latest
-Publify [stable release (8.2.0)](https://github.com/publify/publify/archive/v8.2.0.tar.gz)
-or [clone the Publify repository](https://github.com/publify/publify.git).
-
-[![Build Status](https://travis-ci.org/publify/publify.png?branch=master)](https://travis-ci.org/publify/publify)
-[![Code Climate](https://codeclimate.com/github/publify/publify.png)](https://codeclimate.com/github/publify/publify)
-[![Dependency Status](https://gemnasium.com/publify/publify.png)](https://gemnasium.com/publify/publify)
-
-## What's Publify?
+### What's Publify?
+You will be forking & cloning an open source (MIT LICENSE) blogging platform called Publify.
 
 Publify is a simple but full featured web publishing software. It's built
 around a blogging engine and a small message system connected to Twitter.
@@ -23,7 +16,11 @@ site, and Publish On your Own Site, Syndicate Everywhere.
 Publify has been around since 2004 and is the oldest Ruby on Rails open source
 project alive.
 
-## Features
+[![Build Status](https://travis-ci.org/publify/publify.png?branch=master)](https://travis-ci.org/publify/publify)
+[![Code Climate](https://codeclimate.com/github/publify/publify.png)](https://codeclimate.com/github/publify/publify)
+[![Dependency Status](https://gemnasium.com/publify/publify.png)](https://gemnasium.com/publify/publify)
+
+#### Features
 
 - A classic multi user blogging engine
 - Short messages with a Twitter connection
@@ -35,19 +32,14 @@ project alive.
   German, Danish, Norwegian, Japanese, Hebrew, Simplified Chinese, Mexican
   Spanish, Italian, Lithuanian, Dutch, Polish, Romanian…
 
-## Demo site
+#### Resources
 
-You can [give Publify a try](http://demo.publify.co)
+- [Publify Repo](https://github.com/publify/publify/issues)
+- [Publify blog](http://blog.publify.co)
+- [Publify on Twitter](https://twitter.com/getpublify)
+- IRC: \#publify on irc.freenode.net
 
-The login / password [to the admin](http://demo.publify.co/admin)
-are:
-
-- Administrator: admin / admin
-- Publisher: publish / publish
-
-The demo is reset every 2 hours.
-
-## Install Publify  locally
+## Getting Started: Installing Publify Locally
 
 To install Publify you need the following:
 
@@ -82,102 +74,51 @@ Fork & Clone the Publify repo:
 $ bundle install
 $ rake db:setup
 $ rake db:migrate
-$ rake db:seed
-# $ rake assets:precompile
 $ rails server
 ```
 
 You can now launch you browser and access 127.0.0.1:3000.
 
-<!-- - [] Add tag to blog. -->
-<!-- - [] Display session for "tmppass" (temporary password assigned to you), copy it. -->
-Navigate to `/users/sign_in`
-    + username: "admin"
-    + password: `session["tmppass"]`
+You will be prompted to supply a blog title and email:
 
+You will be signed in and issued a username and password:
 
-## Install Publify on Heroku
-
-In order to install Publify on Heroku, you’ll need to do some minor tweaks.
-
-### Storage
-
-You need to setup Amazon S3 storage to be able to upload files on your
-blog. Set Heroku config vars.
-
-```yaml
-heroku config:set provider=AWS
-aws_access_key_id=YOUR_AWS_ACCESS_KEY_ID
-aws_secret_access_key=YOUR_AWS_SECRET_ACCESS_KEY
-aws_bucket=YOUR_AWS_BUCKET_NAME
-```
-
-To generate the Gemfile.lock, run:
+#### Seed your blog with posts & tags
 ```bash
-HEROKU=true bundle install
+$ rake db:seed
+# => Seeded 24 articles...
 ```
 
-Remove Gemfile.lock from .gitignore and commit it.
+#### Look around!
+* Go to the `/admin` backend and poke around (it's similar to wordpress).
+* Create your first blog post!
 
-Add the HEROKU config variable to your Heroku instance:
+##The Bugs
+The following issues have been added to the main github repo. Please fix each bug on its own branch (e.g. `fix_sidebar_styles`). When you're finished, create a pull request from your fork back to the main repo.
 
-```bash
-heroku config:set HEROKU=true
-```
+> Make sure to reference the issue you are resolving!
 
-Push the repository to Heroku.
+####Issue \#1: Inconsistent Sidebar Styles
+* All titles in the sidebar should have `monospace` style font
+* All bullets should be circles.
 
-When deploying for the first time, Heroku will automatically add a Database
-plugin to your instance and links it to the application. After the first
-deployment, don't forget to run the database migration and seed.
+<img width="221" alt="sidebar styles" src="https://cloud.githubusercontent.com/assets/1489337/12761855/80fe8e7c-c9a1-11e5-9070-6113b8e9b419.png">
 
-```bash
-heroku run rake db:migrate db:seed
-```
+####Issue \#2: Top Month Always Empty (Archive Sidebar)
+* When I click on the top-most month in the Archive Sidebar it says "No posts found...".
+* When I create a post in the _current month_ (e.g. February) it displays a link in the sidebar for _next month_ (e.g. March), and says "No posts found..."
 
-If application error has occurred after migration, you need to restart Heroku server.
+####Issue \#3: Months sorted incorrectly (Archive Sidebar)
+The sort order of months in the Archive Sidebar is off, with January 2015 appearing directly above December 2015:
 
-```bash
-heroku restart
-```
+<img width="249" alt="archive sidebar sort order" src="https://cloud.githubusercontent.com/assets/1489337/12761829/698e56fa-c9a1-11e5-8d90-04ed28aa7a09.png">
 
-## Resources
-
-- [Sidebar Plugins](https://github.com/publify/publify/wiki/Sidebar-plugins)
-- [In page Plugins](https://github.com/publify/publify/wiki/In-Page-Plugins)
-- [**Report a bug**](https://github.com/publify/publify/issues)
-- [**Frequently Asked Questions**](https://github.com/publify/publify/wiki/frequently-asked-questions)
-- [Publify blog](http://blog.publify.co)
-- [Publify on Twitter](https://twitter.com/getpublify)
-- IRC: \#publify on irc.freenode.net
-
-### Maintainers
-
-This is a list of Publify maintainers. If you have committed, please add
-your name and contact details to the list.
-
-**Frédéric de Villamil** <frederic@publify.co>
-blog: http://t37.net
-irc: neuro`
-
-**Matijs van Zuijlen**
-blog: http://www.matijs.net/blog/
-irc: matijs
-
-**Thomas Lecavelier**
-blog: http://blog.ookook.fr/
-irc: ook
-
-**Yannick François**
-blog: http://elsif.fr
-irc: yaf
-
-And [many more cool people who’ve one day or another contributed to
-Publify](https://github.com/publify/publify/graphs/contributors).
-
-**Original Author: Tobias Luetke**
-blog: http://blog.leetsoft.com/
-irc: xal
-
-Enjoy,
-The Publify team
+## Helpful Hints
+* Use **Rubber Duck Debugging** -- Make sure you understand the issue!
+* Use frequent **Sanity Checks**
+    - What are you testing / what are you expecting?
+* **Follow the trail**
+    - How do you work backwards from the view to the server?
+    - How do you find specific files in your rails application?
+    - How do you find specific keywords or method calls?
+* Sometimes you need to **resart the server** if the views you are working with are being cached.
