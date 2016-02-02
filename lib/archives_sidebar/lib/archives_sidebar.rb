@@ -2,7 +2,7 @@ class ArchivesSidebar < Sidebar
   description 'Displays links to monthly archives'
   setting :title, 'Archives'
   setting :show_count, true, label: 'Show article counts', input_type: :checkbox
-  setting :count, 10, label: 'Number of Months'
+  setting :count, 12, label: 'Number of Months'
 
   attr_accessor :archives
 
@@ -30,11 +30,11 @@ class ArchivesSidebar < Sidebar
     article_counts = Content.find_by_sql(["select count(*) as count, #{date_func} from contents where type='Article' and published = ? and published_at < ? group by year,month order by year desc,month desc limit ? ", true, Time.now, count.to_i])
 
     @archives = article_counts.map do |entry|
-      month = entry.month.to_i
+      month = (entry.month.to_i%12)+1
       year = entry.year.to_i
       {
         name: I18n.l(Date.new(year, month), format: '%B %Y'),
-        month: month,
+        month: month - 1,
         year: year,
         article_count: entry.count
       }
