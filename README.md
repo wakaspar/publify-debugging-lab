@@ -54,24 +54,47 @@ To install Publify you need the following:
 - Ruby 2.0, 2.1 or 2.2
 - Ruby On Rails 4.2.0
 - A database engine, MySQL, PgSQL or SQLite3
+
 - A compatible JavaScript installation for asset compilation. See [the execjs
   readme](https://github.com/sstephenson/execjs#readme) for details.
-- ImageMagick (used by mini_magick).
+- ImageMagick
 
-1.  Unzip Publify archive
-2.  Rename database.yml.yourEngine as database.yml
-3.  Edit database.yml to add your database name, login and password.
+#### Setup ImageMagick Dependency
+Make sure that you have ImageMagick installed (used by mini_magick).
+
+Check for imagemagick:
+```bash
+$ which convert
+# /path/to/bin/convert
+```
+
+Install it if it's missing (this can take a few minutes):
+```bash
+$ brew update
+$ brew link
+$ brew install imagemagick
+```
+
+#### Setup Rails Application
+Fork & Clone the Publify repo:
 
 ```bash
 $ bundle install
 $ rake db:setup
 $ rake db:migrate
 $ rake db:seed
-$ rake assets:precompile
+# $ rake assets:precompile
 $ rails server
 ```
 
 You can now launch you browser and access 127.0.0.1:3000.
+
+<!-- - [] Add tag to blog. -->
+<!-- - [] Display session for "tmppass" (temporary password assigned to you), copy it. -->
+Navigate to `/users/sign_in`
+    + username: "admin"
+    + password: `session["tmppass"]`
+
 
 ## Install Publify on Heroku
 
