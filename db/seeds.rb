@@ -6,9 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Daley', city: cities.first)
 
-blog = Blog.first || Blog.create!
 
-tag = blog.tags.first || Tag.create!(name: 'general', display_name: 'General', blog_id: blog.id)
+blog = Blog.first || Blog.create!
 
 unless blog.sidebars.any?
   PageSidebar.create!(active_position: 0, staged_position: 0, blog_id: blog.id)
@@ -45,4 +44,29 @@ end
 
 unless File.directory?("#{::Rails.root.to_s}/public/files")
   Dir.mkdir("#{::Rails.root.to_s}/public/files")
+end
+
+#### Seed Fake Blog Posts
+if User.first # ensures publify was setup & admin created
+
+  seed_date = Date.today
+  seed_tags = ["happy", "coding", "debugging", "pry", "grep", "wdi", "legacy code"]
+  article_qty = 24
+  user = User.first
+
+  Blog.first.articles.destroy_all
+  article_qty.times do
+    blog.articles.create do |article|
+      article.title = FFaker::Company.catch_phrase
+      article.body = FFaker::HipsterIpsum.paragraph(rand(1..3))
+      seed_date -= 30
+      article.published_at = seed_date
+      article.published = true
+      article.user = user
+      article.keywords = seed_tags.sample(rand(1..4)).join(",")
+    end
+  end
+
+  p "Seeded #{article_qty} articles"
+
 end

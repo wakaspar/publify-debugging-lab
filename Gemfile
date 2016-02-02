@@ -83,6 +83,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4.0'
   gem 'simplecov', require: false
   gem 'pry-rails'
+  gem 'ffaker'
 end
 
 group :development do
