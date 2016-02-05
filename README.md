@@ -1,8 +1,11 @@
 # Rails Legacy App
 
-In this lab you will dive into a mature rails application and attempt to fix some reported bugs. This lab will stretch your debugging skills and your ability to navigate a large rails project. We encourage you to tackle it in pairs.
-
 > This Rails application has been intentionally broken!
+
+In this lab you will dive into a mature rails application and attempt to fix some reported bugs. This lab will stretch your debugging skills and your ability to navigate a large rails project. It will also simulate a real-world scenario: contributing to an open source project.
+
+We encourage you work together and tackle it in pairs.
+
 
 ### What's Publify?
 You will be forking & cloning an open source (MIT LICENSE) blogging platform called Publify.
@@ -15,10 +18,6 @@ site, and Publish On your Own Site, Syndicate Everywhere.
 
 Publify has been around since 2004 and is the oldest Ruby on Rails open source
 project alive.
-
-[![Build Status](https://travis-ci.org/publify/publify.png?branch=master)](https://travis-ci.org/publify/publify)
-[![Code Climate](https://codeclimate.com/github/publify/publify.png)](https://codeclimate.com/github/publify/publify)
-[![Dependency Status](https://gemnasium.com/publify/publify.png)](https://gemnasium.com/publify/publify)
 
 #### Features
 
@@ -39,17 +38,20 @@ project alive.
 - [Publify on Twitter](https://twitter.com/getpublify)
 - IRC: \#publify on irc.freenode.net
 
+[![Build Status](https://travis-ci.org/publify/publify.png?branch=master)](https://travis-ci.org/publify/publify)
+[![Code Climate](https://codeclimate.com/github/publify/publify.png)](https://codeclimate.com/github/publify/publify)
+[![Dependency Status](https://gemnasium.com/publify/publify.png)](https://gemnasium.com/publify/publify)
+
 ## Getting Started: Installing Publify Locally
 
 To install Publify you need the following:
 
-- Ruby 2.0, 2.1 or 2.2
-- Ruby On Rails 4.2.0
-- A database engine, MySQL, PgSQL or SQLite3
+- [x] Ruby 2.0, 2.1 or 2.2
+- [x] Ruby On Rails 4.2.0
+- [x] A database engine, MySQL, PgSQL or SQLite3
 
-- A compatible JavaScript installation for asset compilation. See [the execjs
-  readme](https://github.com/sstephenson/execjs#readme) for details.
-- ImageMagick
+- [x] A compatible JavaScript installation for asset compilation. See [the execjs readme](https://github.com/sstephenson/execjs#readme) for details.
+- [ ] ImageMagick
 
 #### Setup ImageMagick Dependency
 Make sure that you have ImageMagick installed (used by mini_magick).
@@ -100,13 +102,19 @@ $ rake db:seed
 
 ##The Bugs
 
-The following issues have been added to the main github repo. Please fix each bug on its own branch (e.g. `fix_sidebar_styles`).
+A number of issues have been added to the main github repo. Please fix each bug on its own branch (e.g. `fix_sidebar_styles`).
 
-> Please visit the `issues` section of this repo for more detailed bug descriptions + screenshots.
+> Make sure to visit the `issues` section of this repo for more detailed bug descriptions + screenshots.
 
 ####Issue \#1: Inconsistent Sidebar Styles
 * All titles in the sidebar should have `monospace` style font
 * All bullets should be circles.
+
+####Issue \#8: Post tags are shown as "object"
+The list of tags associated with a given blog post always display "tags object, object, object".
+
+####Issue \#7: Sign-in form displays raw span html in input fields
+The http://localhost:3000/users/sign_in page shows `<span class=` in the input fields, and other HTML "debris" below them.
 
 ####Issue \#2: Top Month Always Empty (Archive Sidebar)
 * When I click on the top-most month in the Archive Sidebar it says "No posts found...".
@@ -116,11 +124,15 @@ The following issues have been added to the main github repo. Please fix each bu
 The sort order of months in the Archive Sidebar is off, with January 2015 appearing directly above December 2015:
 
 ### Resolving the Issue
-Please fix each bug on its own branch (e.g. `fix_sidebar_styles`). When you're finished with a bug, create a pull request from your fork back to the main repo.
+Please fix each bug on its own branch (e.g. `fix_sidebar_styles`).
+
+When you're finished with a bug, create a pull request from your fork back to the main repo.
+
+> Before you push, make sure to run `rubocop` to lint your ruby code and ensure it meets the standards established by this project.
 
 <img width="1239" alt="example pull request" src="https://cloud.githubusercontent.com/assets/1489337/12763002/f2f3a6b6-c9a6-11e5-9e62-cff790c1a89a.png">
 
-> Make sure to reference the issue you are resolving!
+> Make sure to reference the issue you are resolving! (You can even close an issue from inside your commit message!)
 
 ## Helpful Hints
 * Use **Rubber Duck Debugging** -- Make sure you understand the issue!
