@@ -1,10 +1,10 @@
 /* typewatch() borrowed from http://stackoverflow.com/questions/2219924/idiomatic-jquery-delayed-event-only-after-a-short-pause-in-typing-e-g-timew  */
-var typewatch = (function(){  
+var typewatch = (function(){
   var timer = 0;
   return function(callback, ms){
     clearTimeout (timer);
     timer = setTimeout(callback, ms);
-  }  
+  }
 })();
 
 function autosave_request(e) {
@@ -41,7 +41,7 @@ function tag_manager() {
 }
 
 function save_article_tags() {
-  $('#article_keywords').val($('#article_form').find('input[name="hidden-article[keywords]"]').val());
+  $('#article_keywords').val($('#article_form').find('input[name="hidden-article[keywords]"]'));
 }
 
 function doneTyping () {
@@ -53,17 +53,17 @@ function doneTyping () {
 function set_savebar() {
   var typingTimer;
   var doneTypingInterval = 3000;
-  
+
   $( "#article_body_and_extended" ).keydown(function() {
     $( "#save-bar").fadeOut(2000, function() {
-      
+
     });
     clearTimeout(typingTimer);
   });
- 
+
   $('#article_body_and_extended').keyup(function(){
       typingTimer = setTimeout(doneTyping, doneTypingInterval);
-  }); 
+  });
 }
 
 // From http://www.shawnolson.net/scripts/public_smo_scripts.js
@@ -88,4 +88,4 @@ $(document).ready(function() {
 $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     event.preventDefault();
     $(this).ekkoLightbox();
-}); 
+});
