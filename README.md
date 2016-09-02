@@ -46,8 +46,8 @@ project alive.
 
 To install Publify you need the following:
 
-- [x] Ruby 2.0, 2.1 or 2.2
-- [x] Ruby On Rails 4.2.0
+- [x] Ruby >= 2.2.5
+- [x] Ruby On Rails >= 4.2.0
 - [x] A database engine, MySQL, PgSQL or SQLite3
 
 - [x] A compatible JavaScript installation for asset compilation. See [the execjs readme](https://github.com/sstephenson/execjs#readme) for details.
@@ -70,11 +70,26 @@ $ brew install imagemagick
 ```
 
 #### Setup Rails Application
-Fork & Clone the Publify repo:
+Fork & Clone the Publify repo.
+
+Make a note of your ruby version:
+
+```bash
+ruby -v
+```
+
+Install gem dependencies:
 
 ```bash
 $ bundle install
-$ rake db:setup
+```
+
+> Please keep in mind that a *warning* is not the same as an *error*. Make sure to fix any _errors_ you see immediately, and make a note of _warnings_ for future reference.
+
+Setup your database & run your server:
+
+```bash
+$ rake db:create
 $ rake db:migrate
 $ rails server
 ```
