@@ -11,15 +11,6 @@ else
   require 'yaml'
   env = ENV['RAILS_ENV'] || 'development'
   dbfile = File.expand_path('../config/database.yml', __FILE__)
-
-  unless File.exist?(dbfile)
-    if ENV['DB']
-      FileUtils.cp "config/database.yml.#{ENV['DB'] || 'postgres'}", 'config/database.yml'
-    else
-      raise 'You need to configure config/database.yml first'
-    end
-  end
-
   conf = YAML.load(File.read(dbfile))
   environment = conf[env]
   adapter = environment['adapter'] if environment
