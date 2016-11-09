@@ -56,6 +56,7 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.41.0', require: false
   gem 'i18n-tasks', '~> 0.9.1', require: false
+  gem 'ffaker'
 end
 
 group :development do
