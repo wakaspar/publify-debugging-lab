@@ -109,6 +109,12 @@ ActiveRecord::Schema.define(version: 20161030121548) do
     t.string "description"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "label"
+    t.string "nicename"
+    t.text   "modules"
+  end
+
   create_table "redirects", force: :cascade do |t|
     t.string   "from_path"
     t.string   "to_path"
