@@ -1,12 +1,14 @@
-# Publify
+# Rails Legacy App
 
-**The Ruby on Rails publishing software formerly known as Typo**
+> This Rails application has been intentionally broken!
 
-[![Build Status](https://travis-ci.org/publify/publify.png?branch=master)](https://travis-ci.org/publify/publify)
-[![Code Climate](https://codeclimate.com/github/publify/publify.png)](https://codeclimate.com/github/publify/publify)
-[![Dependency Status](https://gemnasium.com/publify/publify.png)](https://gemnasium.com/publify/publify)
+In this lab you will dive into a mature rails application and attempt to fix some reported bugs. This lab will stretch your debugging skills and your ability to navigate a large rails project. It will also simulate a real-world scenario: contributing to an open source project.
 
-## What's Publify?
+We encourage you work together and tackle it in pairs.
+
+
+### What's Publify?
+You will be forking & cloning an open source (MIT LICENSE) blogging platform called [Publify](github.com/publify/publify).
 
 Publify is a simple but full featured web publishing software. It's built
 around a blogging engine and a small message system connected to Twitter.
@@ -17,7 +19,7 @@ site, and Publish On your Own Site, Syndicate Everywhere.
 Publify has been around since 2004 and is the oldest Ruby on Rails open source
 project alive.
 
-## Features
+#### Features
 
 - A classic multi user blogging engine
 - Short messages with a Twitter connection
@@ -29,137 +31,131 @@ project alive.
   German, Danish, Norwegian, Japanese, Hebrew, Simplified Chinese, Mexican
   Spanish, Italian, Lithuanian, Dutch, Polish, Romanian…
 
-## Demo site
-
-You can [give Publify a try](http://demo.publify.co)
-
-The login / password [to the admin](http://demo.publify.co/admin)
-are:
-
-- Administrator: admin / admin
-- Publisher: publish / publish
-
-The demo is reset every 2 hours.
-
-## Install
-
-### Download
-
-You can download the latest
-Publify [stable release (8.3.3)](https://github.com/publify/publify/archive/v8.3.3.tar.gz)
-
-If you want to run the master branch, you can [clone the Publify
-repository](https://github.com/publify/publify.git). However, random things may
-be broken there at any time, so tread carefully!
-
-**Running the master branch in production is not recommended!**
-
-### Install Publify locally
+## Getting Started: Installing Publify Locally
 
 To install Publify you need the following:
 
-- CRuby (MRI) 2.1, 2.2 or 2.3
-- Ruby on Rails 4.2.x
-- A database engine, MySQL, PgSQL or SQLite3
-- A compatible JavaScript installation for asset compilation. See [the execjs
-  readme](https://github.com/sstephenson/execjs#readme) for details.
-- ImageMagick (used by mini_magick).
+- [ ] Ruby >= 2.2.5
+- [ ] Ruby On Rails ~> 4.2.5
+- [ ] Postgresql
+- [ ] ImageMagick
 
-1.  Unzip Publify archive
-2.  Rename database.yml.yourEngine as database.yml
-3.  Edit database.yml to add your database name, login and password.
+#### Setup Dependencies
+First things first, **Fork** & Clone the Publify repo.
+
+If necessary, update `rake` to `~> 11.1`.
+
+``` bash
+$ rake --version
+# if rake version >= 11.1 then STOP, otherwise...
+$ bundle update rake
+```
+
+If necessary, switch to ruby 2.2.5.
+
+``` bash
+$ ruby -v
+# if ruby version >= 2.2.5 then STOP, otherwise...
+$ rvm get 2.2.5
+$ rvm use 2.2.5 --default # sets ruby-2.2.5 as global default
+```
+
+If necessary, install `imagemagick` (used by `mini_magick` gem).
 
 ```bash
+$ which convert
+# if you see path/to/bin/convert then STOP, otherwise...
+$ brew update
+$ brew link
+$ brew install imagemagick # this can take a while!
+```
+
+Finally, you should be ready to `bundle`:
+
+``` bash
 $ bundle install
+```
+
+> Stop and check for **errors** in your bundle output. (A "warning" is not an error! Warnings are okay for now, but errors are bad!)
+
+#### Setup Rails Application
+Now we'll set up and seed our database:
+
+```bash
 $ rake db:setup
 $ rake db:migrate
-$ rake db:seed
-$ rake assets:precompile
+```
+
+Launch you browser and access 127.0.0.1:3000.
+
+```bash
 $ rails server
 ```
 
-You can now launch you browser and access 127.0.0.1:3000.
+Supply a blog `title` and `email`:
 
-### Install Publify on Heroku
+<img width="382" alt="setup blog screenshot" src="https://cloud.githubusercontent.com/assets/1489337/12763124/9cbd3a5e-c9a7-11e5-97e3-e39e6098adf3.png">
 
-In order to install Publify on Heroku, you’ll need to do some minor tweaks.
+Write down your *admin* `username` and `password`:
 
-First of all, you need to setup Amazon S3 storage to be able to upload files on
-your blog. Set Heroku config vars.
+<img width="380" alt="setup example login info screenshot" src="https://cloud.githubusercontent.com/assets/1489337/12763208/0440d834-c9a8-11e5-9c81-05a4b60e9722.png">
 
-```yaml
-heroku config:set provider=AWS
-aws_access_key_id=YOUR_AWS_ACCESS_KEY_ID
-aws_secret_access_key=YOUR_AWS_SECRET_ACCESS_KEY
-aws_bucket=YOUR_AWS_BUCKET_NAME
-```
+Choose a theme:
 
-To generate the Gemfile.lock, run:
+* in the `/admin` section, click `Design > Choose theme`
+* select the "bootstrap-2" theme option.
+
+Finally, **seed your blog with `articles`**:
 ```bash
-HEROKU=true bundle install
+$ rake db:seed:articles
+# => Seeded 24 articles...
 ```
 
-Remove Gemfile.lock from .gitignore and commit it.
+## Now Look Around!
+* Poke around in the `/admin` section (it's similar to wordpress).
+* Visit your blog homepage at `localhost:3000/`
+* Publish your first blog post!
 
-Add the HEROKU config variable to your Heroku instance:
+##The Bugs
 
-```bash
-heroku config:set HEROKU=true
-```
+A number of issues have been added to the main github repo. Please fix each bug on its own branch (e.g. `fix_sidebar_styles`). We suggest you do them in order:
 
-Push the repository to Heroku.
+1. Inconsistent Sidebar Styles
+2. Post tags are shown as "object"
+3. Load spinner does not go away
+4. Top Month Always Empty (Archive Sidebar)
+5. Months sorted incorrectly (Archive Sidebar)
 
-When deploying for the first time, Heroku will automatically add a Database
-plugin to your instance and links it to the application. After the first
-deployment, don't forget to run the database migration and seed.
+> To view more details, go to the "issues" section of this repo!
 
-```bash
-heroku run rake db:migrate db:seed
-```
+### Resolving the Issue
+Please fix each bug on its own branch (e.g. `fix_sidebar_styles`).
 
-If application error has occurred after migration, you need to restart Heroku server.
+When you're finished with a bug, create a pull request from your fork back to the main repo.
 
-```bash
-heroku restart
-```
+Make sure to [explicitily reference](https://help.github.com/articles/autolinked-references-and-urls/#issues-and-pull-requests) the issue you are resolving in the _body_ of your pull request!
 
-## Resources
+You can even [close an issue from inside your commit message](https://help.github.com/articles/closing-issues-via-commit-messages/))!
 
-- [Sidebar Plugins](https://github.com/publify/publify/wiki/Sidebar-plugins)
-- [In page Plugins](https://github.com/publify/publify/wiki/In-Page-Plugins)
-- [**Report a bug**](https://github.com/publify/publify/issues)
-- [**Frequently Asked Questions**](https://github.com/publify/publify/wiki/frequently-asked-questions)
-- [Publify blog](http://blog.publify.co)
-- [Publify on Twitter](https://twitter.com/getpublify)
-- IRC: \#publify on irc.freenode.net
+<img width="1239" alt="example pull request" src="https://cloud.githubusercontent.com/assets/1489337/12763002/f2f3a6b6-c9a6-11e5-9e62-cff790c1a89a.png">
 
-## Maintainers
+**We will hold you to the highest professional standards of software development**.
 
-This is a list of Publify maintainers. If you have committed, please add
-your name and contact details to the list.
+We will not accept pull requests that:
+* fail to reference the issue number in the _body_ of the pull request
+* have poor code style -- e.g. incorrect indentation / whitespace
+* modify files that are not immediately relevant to the bug at hand
+* have poor commit messages or too many commits
+* fail to explain, in plain english, what the problem was and how and why the pull request fixes it
 
-**Frédéric de Villamil** <frederic@publify.co>
-blog: http://t37.net
-irc: neuro`
+> Before you push, make sure to run `rubocop` to lint your ruby code and ensure it meets the standards established by this project.
 
-**Matijs van Zuijlen**
-blog: http://www.matijs.net/blog/
-irc: matijs
-
-**Thomas Lecavelier**
-blog: http://blog.ookook.fr/
-irc: ook
-
-**Yannick François**
-blog: http://elsif.fr
-irc: yaf
-
-And [many more cool people who’ve one day or another contributed to
-Publify](https://github.com/publify/publify/graphs/contributors).
-
-**Original Author: Tobias Luetke**
-blog: http://blog.leetsoft.com/
-irc: xal
-
-Enjoy,
-The Publify team
+## Helpful Hints
+* Use **Rubber Duck Debugging** -- Make sure you understand the issue!
+* Use frequent **Sanity Checks**
+    - What are you testing / what are you expecting?
+* **Follow the trail**
+    - How do you work backwards from the view to the server?
+    - How do you find specific files in your rails application?
+    - How do you find specific keywords or method calls?
+* Sometimes you need to **resart the server** if the views you are working with are being cached.
